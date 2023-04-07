@@ -8,14 +8,43 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject private var manager = VideoManager()
+    @State private var searchText: String = ""
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView {
+            ScrollView {
+                VStack {
+                    if manager.videos.isEmpty {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                            .scaleEffect(1.5)
+                    } else {
+                        ForEach(manager.videos, id: \.id) { video in
+                            NavigationLink {
+                                ViewPlayer(video: video)
+                            } label: {
+                                VideoTumbnail(url: URL(string: video.image)!, title: video.user.name, views: String(video.id))
+                            }
+                        }
+                    }
+                }
+            }
+            .searchable(text: $searchText, placement: .sidebar, prompt: "Search for videos")
+            .onSubmit(of: .search) {
+                manager.searchQeuery = searchText
+                print(manager.videos.count)
+            }
+            .navigationTitle("VideoPlayer")
+//            .toolbar {
+//                ToolbarItem {
+//                    Button {
+//                        manager.searchQeuery = searchText
+//                    } label: {
+//                        Image(systemName: "arrow.clockwise")
+//                    }
+//                }
+//            }
         }
-        .padding()
     }
 }
 
