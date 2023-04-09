@@ -21,7 +21,7 @@ struct ContentView: View {
                     } else {
                         ForEach(manager.videos, id: \.id) { video in
                             NavigationLink {
-                                ViewPlayer(video: video)
+                                VideoPlayerView(video: video)
                             } label: {
                                 VideoTumbnail(url: URL(string: video.image)!, title: video.user.name, views: String(video.id))
                             }
@@ -35,15 +35,6 @@ struct ContentView: View {
                 print(manager.videos.count)
             }
             .navigationTitle("VideoPlayer")
-//            .toolbar {
-//                ToolbarItem {
-//                    Button {
-//                        manager.searchQeuery = searchText
-//                    } label: {
-//                        Image(systemName: "arrow.clockwise")
-//                    }
-//                }
-//            }
         }
     }
 }

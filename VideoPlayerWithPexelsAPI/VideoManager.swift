@@ -7,6 +7,8 @@
 
 import Foundation
 
+/// The `VideoManager` has nothing to do with the AVPlayer
+/// It is responsible for fetching the videos from the Pexels API
 class VideoManager: ObservableObject {
     @Published private(set) var videos: [Videos] = []
     @Published var searchQeuery: String = "" {

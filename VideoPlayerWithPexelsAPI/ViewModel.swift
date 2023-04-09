@@ -9,7 +9,7 @@
 
 import Foundation
 
-struct Response: Decodable {
+struct Response: Decodable {
     var page: Int
     var perPage: Int
     var totalResults: Int
